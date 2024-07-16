@@ -1,8 +1,7 @@
-// تمارين المعدة 
 
 import 'package:flutter/material.dart';
 
-// صفحة خاصة بي  تمارين الارداف 
+// صفحة خاصة بي  تمارين المعدة  
  
 class Stomach extends StatefulWidget {
   const Stomach({Key? key}) : super(key: key);

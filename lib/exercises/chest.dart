@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:formafit/classes/exsrsise.dart';
+import 'package:formafit/classes/gym_exercises.dart';
 
 // صفحة خاصة بي  تمارين الصدر  
  
@@ -58,12 +60,16 @@ class _ChestState extends State<Chest> with SingleTickerProviderStateMixin {
   }
 }
 
-class ChestGym extends StatelessWidget {
+class ChestGym extends StatefulWidget {
+  const ChestGym({super.key});
+  @override
+  State<ChestGym> createState() => _ChestGymState();
+}
+
+class _ChestGymState extends State<ChestGym> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Chest Gym'),
-    );
+    return exsrsis(myList: chest_list,selectindex: [],);
   }
 }
 

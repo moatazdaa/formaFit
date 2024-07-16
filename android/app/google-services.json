@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "363836045063",
+    "project_id": "formafit-2febc",
+    "storage_bucket": "formafit-2febc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:363836045063:android:6c801f475fab1bdd6477a2",
+        "android_client_info": {
+          "package_name": "com.example.formafit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnfhy57ysPMsYHGY-imqA077v3u0WsAf4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

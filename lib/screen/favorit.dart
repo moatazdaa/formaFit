@@ -1,4 +1,5 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // صفحة خاصة بالمفضلة 
@@ -10,34 +11,8 @@ class FavoritScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Favorit Screen'),
       ),
-      body: Column(
-        children: [
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'Search...',
-            ),
-          ),
-          Expanded(
-            child: ListView(
-              children: [
-                ListTile(
-                  leading: Icon(Icons.search),
-                  title: Text('Result 1'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.search),
-                  title: Text('Result 2'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.search),
-                  title: Text('Result 3'),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+      body:
+    Center(child: Text("data"),)
     );
   }
 }
-

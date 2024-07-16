@@ -1,16 +1,15 @@
-
 import 'package:flutter/material.dart';
 
-// صفحة خاصة بي  تمارين الارداف 
- 
-class Buttocks extends StatefulWidget {
-  const Buttocks({Key? key}) : super(key: key);
+// صفحة خاصة بي تمارين البايسبس
+
+class Biceps extends StatefulWidget {
+  const Biceps({Key? key}) : super(key: key);
 
   @override
-  _ButtocksState createState() => _ButtocksState();
+  _BicepsState createState() => _BicepsState();
 }
 
-class _ButtocksState extends State<Buttocks> with SingleTickerProviderStateMixin {
+class _BicepsState extends State<Biceps> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int _selectedIndex = 0;
 
@@ -36,7 +35,7 @@ class _ButtocksState extends State<Buttocks> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('الأرداف '),
+        title: Text('يايسبس '),
         bottom: TabBar(
           controller: _tabController, // تعيين TabController هنا
           tabs: [ 
@@ -50,28 +49,28 @@ class _ButtocksState extends State<Buttocks> with SingleTickerProviderStateMixin
       body: TabBarView(
         controller: _tabController,
         children: [
-         ButtocksGym(),
-          ButtocksHome(),
+         BicepsGym(),
+          BicepsHome(),
         ],
       ),
     );
   }
 }
 
-class ButtocksGym extends StatelessWidget {
+class BicepsGym extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('Buttocks Gym'),
+      child: Text('Biceps Gym'),
     );
   }
 }
 
-class ButtocksHome extends StatelessWidget {
+class BicepsHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('Buttocks Home'),
+      child: Text('Biceps Home'),
     );
   }
 }

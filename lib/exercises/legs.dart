@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:formafit/classes/exsrsise.dart';
+import 'package:formafit/classes/gym_exercises.dart';
 
 // صفحة خاصة بي  تمارين الارجل  
  
@@ -58,12 +60,16 @@ class _LegsState extends State<Legs> with SingleTickerProviderStateMixin {
   }
 }
 
-class LegsGym extends StatelessWidget {
+class LegsGym extends StatefulWidget {
+  const LegsGym ({super.key});
+  @override
+  State<LegsGym> createState() => _LegsGymState();
+}
+
+class _LegsGymState extends State<LegsGym> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Legs Gym'),
-    );
+    return exsrsis(myList: legs_list, selectindex: [],);
   }
 }
 

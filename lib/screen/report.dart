@@ -1,300 +1,309 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:flutter/widgets.dart';
+// import 'package:flutter/material.dart';
 
-// صفحة خاصة بي تقارير 
-class ExerciseData {
-  final String weekName;
-  final int caloriesBurned;
-  final double weight;
-  final int duration;
+// import 'package:charts_flutter/flutter.dart' as charts;
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// // صفحة خاصة بي تقارير
 
-  ExerciseData(
-    this.weekName,
-    this.caloriesBurned,
-    this.weight,
-    this.duration,
-  );
-}
+// class ReportScreen extends StatefulWidget {
+//   //final Widget child;
 
-class ReportScreen extends StatefulWidget {
-  @override
-  _ReportScreenState createState() => _ReportScreenState();
-}
+//   ReportScreen({Key? key,}) ;
 
-class _ReportScreenState extends State<ReportScreen> {
-  String selectedMonth = 'الشهر الأول';
-  String selectedWeek = 'الأسبوع الأول';
-  double selectedWeight = 0.0;
-  int selectedCalories = 0;
-  int selectedDuration = 0;
-  bool isMonthlyReport = true;
+//   _ReportScreenState createState() => _ReportScreenState();
+// }
 
-  List<charts.Series<ExerciseData, String>> seriesList = [];
+// class _ReportScreenState extends State<ReportScreen> {
+//   late List<charts.Series<Pollution, String>> _seriesData;
+//   late List<charts.Series<Task, String>> _seriesPieData;
+//   late List<charts.Series<Sales, int>> _seriesLineData;
 
-  static List<charts.Series<ExerciseData, String>> _createSampleData() {
-    final List<ExerciseData> month1Data = [
-      ExerciseData('أسبوع 1', 7100, 60.0, 30),
-      ExerciseData('أسبوع 2', 8000, 65.0, 40),
-      ExerciseData('أسبوع 3', 7300, 62.5, 35),
-      ExerciseData('أسبوع 4', 7600, 61.0, 32),
-    ];
+//   _generateData() {
+ 
+//     var data1 = [
+//       new Pollution(1980, 'USA', 30),
+//       new Pollution(1980, 'Asia', 40),
+//       new Pollution(1980, 'Europe', 10),
+//     ];
+//     var data2 = [
+//       new Pollution(1985, 'USA', 100),
+//       new Pollution(1980, 'Asia', 150),
+//       new Pollution(1985, 'Europe', 80),
+//     ];
+//     var data3 = [
+//       new Pollution(1985, 'USA', 200),
+//       new Pollution(1980, 'Asia', 300),
+//       new Pollution(1985, 'Europe', 180),
+//     ];
 
-    final List<ExerciseData> month2Data = [
-      ExerciseData('أسبوع 1', 8200, 63.0, 33),
-      ExerciseData('أسبوع 2', 7800, 64.0, 36),
-      ExerciseData('أسبوع 3', 7700, 62.0, 34),
-      ExerciseData('أسبوع 4', 7900, 66.0, 42),
-    ];
+//     var piedata = [
+//       new Task('Work', 35.8, Color(0xff3366cc)),
+//       new Task('Eat', 8.3, Color(0xff990099)),
+//       new Task('Commute', 10.8, Color(0xff109618)),
+//       new Task('TV', 15.6, Color(0xfffdbe19)),
+//       new Task('Sleep', 19.2, Color(0xffff9900)),
+//       new Task('Other', 10.3, Color(0xffdc3912)),
+//     ];
 
-    return [
-      charts.Series<ExerciseData, String>(
-        id: 'calories',
-        domainFn: (ExerciseData exercise, _) => exercise.weekName,
-        measureFn: (ExerciseData exercise, _) => exercise.caloriesBurned,
-        data: month1Data,
-        colorFn: (_, __) => charts.Color.fromHex(code: '#FF0000'),
-      ),
-      charts.Series<ExerciseData, String>(
-        id: 'weight',
-        domainFn: (ExerciseData exercise, _) => exercise.weekName,
-        measureFn: (ExerciseData exercise, _) => exercise.weight,
-        data: month1Data,
-        colorFn: (_, __) => charts.Color.fromHex(code: '#00FF00'),
-      ),
-      charts.Series<ExerciseData, String>(
-        id: 'duration',
-        domainFn: (ExerciseData exercise, _) => exercise.weekName,
-        measureFn: (ExerciseData exercise, _) => exercise.duration,
-        data: month1Data,
-        colorFn: (_, __) => charts.Color.fromHex(code: '#0000FF'),
-      ),
-    ];
-  }
+//     var linesalesdata = [
+//       new Sales(0, 45),
+//       new Sales(1, 56),
+//       new Sales(2, 55),
+//       new Sales(3, 60),
+//       new Sales(4, 61),
+//       new Sales(5, 70),
+//     ];
+//     var linesalesdata1 = [
+//       new Sales(0, 35),
+//       new Sales(1, 46),
+//       new Sales(2, 45),
+//       new Sales(3, 50),
+//       new Sales(4, 51),
+//       new Sales(5, 60),
+//     ];
 
+//     var linesalesdata2 = [
+//       new Sales(0, 20),
+//       new Sales(1, 24),
+//       new Sales(2, 25),
+//       new Sales(3, 40),
+//       new Sales(4, 45),
+//       new Sales(5, 60),
+//     ];
+// _seriesData = [];
+// _seriesPieData = [];
+// _seriesLineData = [];
+//     _seriesData.add(
+//       charts.Series(
+//         domainFn: (Pollution pollution, _) => pollution.place,
+//         measureFn: (Pollution pollution, _) => pollution.quantity,
+//         id: '2017',
+//         data: data1,
+//         fillPatternFn: (_, __) => charts.FillPatternType.solid,
+//         fillColorFn: (Pollution pollution, _) =>
+//             charts.ColorUtil.fromDartColor(Color(0xff990099)),
+//       ), 
+//     );
 
-  @override
-    void initState() {
-    super.initState();
-    seriesList = _createSampleData();
-    selectedCalories = seriesList[0].data[0].caloriesBurned;
-    selectedWeight = seriesList[1].data[0].weight;
-    selectedDuration = seriesList[2].data[0].duration;
-  }
- void _showMonthsDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('الشهور'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                title: Text('الشهر الأول'),
-                onTap: () {
-                  setState(() {
-                    isMonthlyReport = true;
-                    seriesList = _createSampleData();
-                    selectedMonth = 'الشهر الأول';
-                    selectedWeek = seriesList[0].data[0].weekName;
-                    selectedCalories = seriesList[0].data[0].caloriesBurned;
-                    selectedWeight = seriesList[1].data[0].weight;
-                    selectedDuration = seriesList[2].data[0].duration;
-                  });
-                  Navigator.pop(context); // إغلاق الحوار
-                },
-              ),
-              ListTile(
-                title: Text('الشهر الثاني'),
-                onTap: () {
-                  setState(() {
-                    isMonthlyReport = true;
-                    seriesList = _createSampleData();
-                    selectedMonth = 'الشهر الثاني';
-                    selectedWeek = seriesList[0].data[0].weekName;
-                    selectedCalories = seriesList[0].data[0].caloriesBurned;
-                    selectedWeight = seriesList[1].data[0].weight;
-                    selectedDuration = seriesList[2].data[0].duration;
-                  });
-                  Navigator.pop(context); // إغلاق الحوار
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+//     _seriesData.add(
+//       charts.Series(
+//         domainFn: (Pollution pollution, _) => pollution.place,
+//         measureFn: (Pollution pollution, _) => pollution.quantity,
+//         id: '2018',
+//         data: data2,
+//         fillPatternFn: (_, __) => charts.FillPatternType.solid,
+//         fillColorFn: (Pollution pollution, _) =>
+//            charts.ColorUtil.fromDartColor(Color(0xff109618)),
+//       ),
+//     );
 
-  void _showWeeksDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('الأسابيع'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                title: Text('الأسبوع الأول'),
-                onTap: () {
-                  setState(() {
-                    isMonthlyReport = false;
-                    selectedWeek = 'الأسبوع الأول';
-                    selectedCalories = seriesList[0].data[0].caloriesBurned;
-                    selectedWeight = seriesList[1].data[0].weight;
-                    selectedDuration = seriesList[2].data[0].duration;
-                  });
-                  Navigator.pop(context); // إغلاق الحوار
-                },
-              ),
-              ListTile(
-                title: Text('الأسبوع الثاني'),
-                onTap: () {
-                  setState(() {
-                    isMonthlyReport = false;
-                    selectedWeek = 'الأسبوع الثاني';
-                    selectedCalories = seriesList[0].data[1].caloriesBurned;
-                    selectedWeight = seriesList[1].data[1].weight;
-                    selectedDuration = seriesList[2].data[1].duration;
-                  });
-                  Navigator.pop(context); // إغلاق الحوار
-                },
-              ),
-              ListTile(
-                title: Text('الأسبوع الثالث'),
-                onTap: () {
-                  setState(() {
-                    isMonthlyReport = false;
-                    selectedWeek = 'الأسبوع الثالث';
-                    selectedCalories = seriesList[0].data[2].caloriesBurned;
-                    selectedWeight = seriesList[1].data[2].weight;
-                    selectedDuration = seriesList[2].data[2].duration;
-                  });
-                  Navigator.pop(context); // إغلاق الحوار
-                },
-              ),
-              ListTile(
-                title: Text('الأسبوع الرابع'),
-                onTap: () {
-                  setState(() {
-                    isMonthlyReport = false;
-                    selectedWeek = 'الأسبوع الرابع';
-                    selectedCalories = seriesList[0].data[3].caloriesBurned;
-                    selectedWeight = seriesList[1].data[3].weight;
-                    selectedDuration = seriesList[2].data[3].duration;
-                  });
-                  Navigator.pop(context); // إغلاق الحوار
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+//     _seriesData.add(
+//       charts.Series(
+//         domainFn: (Pollution pollution, _) => pollution.place,
+//         measureFn: (Pollution pollution, _) => pollution.quantity,
+//         id: '2019',
+//         data: data3,
+//         fillPatternFn: (_, __) => charts.FillPatternType.solid,
+//        fillColorFn: (Pollution pollution, _) =>
+//           charts.ColorUtil.fromDartColor(Color(0xffff9900)),
+//       ),
+//     );
 
-  
-  @override
-  Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text('تقرير التمارين'),
-    ),
-    body: Padding(
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          SizedBox(height: 16.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                selectedMonth,
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(width: 16.0),
-              ElevatedButton(
-                onPressed: () => _showMonthsDialog(context),
-                child: Text('تغيير الشهر'),
-              ),
-            ],
-          ),
-          SizedBox(height: 16.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  selectedWeek,
-                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(width: 16.0),
-                ElevatedButton(
-                  onPressed: () => _showWeeksDialog(context),
-                  child: Text('تغيير الأسبوع'),
-                ),
-              ],
-            ),
-          SizedBox(height: 16.0),
-          Text(
-            'السعرات الحرارية المحروقة: $selectedCalories',
-            style: TextStyle(fontSize: 18.0),
-          ),
-          SizedBox(height: 16.0),
-          Text(
-            'الوزن: $selectedWeight',
-            style: TextStyle(fontSize: 18.0),
-          ),
-          SizedBox(height: 16.0),
-          Text(
-            'المدة: $selectedDuration',
-            style: TextStyle(fontSize: 18.0),
-          ),
-          SizedBox(height: 16.0),
-          SizedBox(height: 150.0),
-    
-          Expanded(
-            child: Container(
-            height: 250, // ارتفاع المخطط بالبكسل
-            child: charts.BarChart(
-            seriesList,
-            animate: true,)),
-          ),
+//     _seriesPieData.add(
+//       charts.Series(
+//         domainFn: (Task task, _) => task.task,
+//         measureFn: (Task task, _) => task.taskvalue,
+//         colorFn: (Task task, _) =>
+//             charts.ColorUtil.fromDartColor(task.colorval),
+//         id: 'Air Pollution',
+//         data: piedata,
+//          labelAccessorFn: (Task row, _) => '${row.taskvalue}',
+//       ),
+//     );
 
+//     _seriesLineData.add(
+//       charts.Series(
+//         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
+//         id: 'Air Pollution',
+//         data: linesalesdata,
+//         domainFn: (Sales sales, _) => sales.yearval,
+//         measureFn: (Sales sales, _) => sales.salesval,
+//       ),
+//     );
+//     _seriesLineData.add(
+//       charts.Series(
+//         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff109618)),
+//         id: 'Air Pollution',
+//         data: linesalesdata1,
+//         domainFn: (Sales sales, _) => sales.yearval,
+//         measureFn: (Sales sales, _) => sales.salesval,
+//       ),
+//     );
+//     _seriesLineData.add(
+//       charts.Series(
+//         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xffff9900)),
+//         id: 'Air Pollution',
+//         data: linesalesdata2,
+//         domainFn: (Sales sales, _) => sales.yearval,
+//         measureFn: (Sales sales, _) => sales.salesval,
+//       ),
+//     );
+//   }
 
-        ],
-      ),
-    ),
-  );
-}}
+//   @override
+//   void initState() {
+//     // TODO: implement initState
+//     super.initState();
+//     _seriesData = List<charts.Series<Pollution, String>>.empty();
+//     _seriesPieData = List<charts.Series<Task, String>>.empty();
+//     _seriesLineData = List<charts.Series<Sales, int>>.empty();
+//     _generateData();
+//   }
 
-//  domainAxis: charts.OrdinalAxisSpec(
-//                 renderSpec: charts.SmallTickRendererSpec(
-//                   // تعيين سمك الخطوط والنقاط
-//                   lineStyle: charts.LineStyleSpec(
-//            thickness: 1, // سمك الخطوط
-//            color: charts.MaterialPalette.black, // لون الخطوط
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: DefaultTabController(
+//         length: 3,
+//         child: Scaffold(
+//           appBar: AppBar(
+//             backgroundColor: Color(0xff1976d2),
+//             //backgroundColor: Color(0xff308e1c),
+//             bottom: TabBar(
+//               indicatorColor: Color(0xff9962D0),
+//               tabs: [
+//                 Tab(
+//                   icon: Icon(FontAwesomeIcons.solidChartBar),
+//                 ),
+//                 Tab(icon: Icon(FontAwesomeIcons.chartPie)),
+//                 Tab(icon: Icon(FontAwesomeIcons.chartLine)),
+//               ],
+//             ),
+//             title: Text('Report'),
+//           ),
+//           body: TabBarView(
+//             children: [
+//               Padding(
+//                 padding: EdgeInsets.all(8.0),
+//                 child: Container(
+//                   child: Center(
+//                     child: Column(
+//                       children: [
+//                         Text(
+//                             'SO₂ emissions, by world region (in million tonnes)',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+//                         Expanded(
+//                           child: charts.BarChart(
+//                             _seriesData,
+//                             animate: true,
+//                             barGroupingType: charts.BarGroupingType.grouped,
+//                             //behaviors: [new charts.SeriesLegend()],
+//                             animationDuration: Duration(seconds: 5),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
 //                   ),
-//                   // تعيين حجم النقاط
-//                   labelStyle: charts.TextStyleSpec(fontSize: 14), // حجم النص
-//                   // تعيين حجم العلامات
-//                   labelOffsetFromAxisPx: 2, // بعد العلامة عن الخط
-//                   labelAnchor: charts.TickLabelAnchor.before, // موضع العلامة
 //                 ),
 //               ),
-//               primaryMeasureAxis: charts.NumericAxisSpec(
-//                 renderSpec: charts.GridlineRendererSpec(
-//                   // تعيين سمك الخطوط والنقاط
-//                   lineStyle: charts.LineStyleSpec(
-//            thickness: 1, // سمك الخطوط
-//            color: charts.MaterialPalette.black, // لون الخطوط
+//               Padding(
+//                 padding: EdgeInsets.all(8.0),
+//                 child: Container(
+//                   width: double.infinity,
+//                   child: Center(
+//                     child: Column(
+//                       children: [
+//                         Text(
+//                             'Time spent on daily tasks',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+//                             SizedBox(height: 10.0,),
+//                         Expanded(
+//                           child: charts.PieChart(
+//                             _seriesPieData,
+//                             animate: true,
+//                             animationDuration: Duration(seconds: 5),
+//                              behaviors: [
+//                             new charts.DatumLegend(
+//                               outsideJustification: charts.OutsideJustification.endDrawArea,
+//                               horizontalFirst: false,
+//                               desiredMaxRows: 2,
+//                               cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
+//                               entryTextStyle: charts.TextStyleSpec(
+//                                   color: charts.MaterialPalette.purple.shadeDefault,
+//                                   fontFamily: 'Georgia',
+//                                   fontSize: 11),
+//                             )
+//                           ],
+//                            defaultRenderer: new charts.ArcRendererConfig(
+//                               arcWidth: 50,
+//                              arcRendererDecorators: [
+//           new charts.ArcLabelDecorator(
+//               labelPosition: charts.ArcLabelPosition.inside)
+//         ])),
+//                         ),
+//                       ],
+//                     ),
 //                   ),
-//                   // تعيين حجم النقاط
-//                   labelStyle: charts.TextStyleSpec(fontSize: 12), // حجم النص
-//                   // تعيين حجم العلامات
-//                   labelOffsetFromAxisPx: 2, // بعد العلامة عن الخط
-//                   labelAnchor: charts.TickLabelAnchor.before, // موضع العلامة
 //                 ),
 //               ),
+//               Padding(
+//                 padding: EdgeInsets.all(8.0),
+//                 child: Container(
+//                   child: Center(
+//                     child: Column(
+//                       children: [
+//                         Text(
+//                             'Sales for the first 5 years',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+//                         Expanded(
+//                           child: charts.LineChart(
+//                             _seriesLineData,
+//                             defaultRenderer: new charts.LineRendererConfig(
+//                                 includeArea: true, stacked: true),
+//                             animate: true,
+//                             animationDuration: Duration(seconds: 5),
+//                             behaviors: [
+//         new charts.ChartTitle('Years',
+//             behaviorPosition: charts.BehaviorPosition.bottom,
+//             titleOutsideJustification:charts.OutsideJustification.middleDrawArea),
+//         new charts.ChartTitle('Sales',
+//             behaviorPosition: charts.BehaviorPosition.start,
+//             titleOutsideJustification: charts.OutsideJustification.middleDrawArea),
+//         new charts.ChartTitle('Departments',
+//             behaviorPosition: charts.BehaviorPosition.end,
+//             titleOutsideJustification:charts.OutsideJustification.middleDrawArea,
+//             )   
+//       ]
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class Pollution {
+//   String place;
+//   int year;
+//   int quantity;
+
+//   Pollution(this.year, this.place, this.quantity);
+// }
+
+// class Task {
+//   String task;
+//   double taskvalue;
+//   Color colorval;
+
+//   Task(this.task, this.taskvalue, this.colorval);
+// }
+
+// class Sales {
+//   int yearval;
+//   int salesval;
+
+//   Sales(this.yearval, this.salesval);
+// }
